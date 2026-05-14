@@ -1,55 +1,49 @@
-# snippet-manager
+# flashcard-cli
 
-Code snippet manager CLI — lưu và tra cứu các đoạn code hữu ích trong quá trình học lập trình.
+CLI tool học flashcard bằng Python thuần (không cần cài thêm thư viện).
+
+Cards được lưu tại `~/.flashcards.json`.
 
 ## Cài đặt
 
-Không cần `pip install`. Chỉ cần Python 3.8+.
-
 ```bash
-python snippet.py --help
+# Clone về
+git clone https://github.com/HaJun2026/flashcard-cli.git
+cd flashcard-cli
+
+# Python 3.8+ là đủ, không cần pip install gì thêm
+python flashcard.py --help
 ```
 
 ## Lệnh
 
-| Lệnh | Mô tả |
-|------|-------|
-| `add "title" "code" --lang py --tags tag1 tag2 --note "..."` | Lưu snippet mới |
-| `list [--lang python] [--tag pattern]` | Liệt kê snippets |
-| `show <id>` | Hiển thị snippet đầy đủ |
-| `search <keyword>` | Tìm theo từ khoá |
-| `delete <id>` | Xoá snippet |
-| `export [--output file.md] [--lang python]` | Xuất ra Markdown |
-| `stats` | Thống kê sử dụng |
-
-## Ví dụ
-
 ```bash
-# Lưu một snippet
-python snippet.py add "List comprehension với điều kiện" \
-  "[x*2 for x in range(10) if x % 2 == 0]" \
-  --lang python --tags python pattern --note "Lọc và transform trong 1 dòng"
+# Thêm card
+python flashcard.py add "List comprehension là gì?" "Cú pháp tạo list ngắn gọn: [x for x in iterable if condition]" --tag python
 
-# Tìm kiếm
-python snippet.py search "decorator"
+# Xem danh sách
+python flashcard.py list
+python flashcard.py list --tag python
 
-# Xem snippet #3
-python snippet.py show 3
+# Ôn tập (5 card, ưu tiên card chưa thuộc)
+python flashcard.py quiz --tag python --count 5
 
-# Xuất tất cả snippet Python
-python snippet.py export --lang python --output python_snippets.md
+# Thống kê
+python flashcard.py stats
+
+# Xoá card
+python flashcard.py delete 3
 ```
-
-## Lưu trữ
-
-Snippets được lưu tại `~/.snippets.json` — không bị mất khi update code.
-
-## Templates
-
-Xem thư mục `templates/` để có sẵn các pattern phổ biến:
-- `python_patterns.md`
-- `web_patterns.md`
 
 ## Tích hợp với Claude Code
 
-Dùng skill `/snippet` trong Claude Code để lưu snippets tự động từ hội thoại.
+Dùng skill `/flashcard` trong Claude Code để tạo card tự động từ ghi chú học tập.
+
+## Tags gợi ý
+
+| Tag | Nội dung |
+|-----|----------|
+| `python` | Lập trình Python |
+| `web` | HTML/CSS/JS/React/Next.js |
+| `backend` | API, database, server |
+| `general` | Kiến thức tổng quát |
